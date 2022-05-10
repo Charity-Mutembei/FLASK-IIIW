@@ -1,11 +1,11 @@
 # from turtle import title
 from flask import render_template
-from ..models import Pitch
+from ..models import Pitch, User
 
 from app.request import Pitch
 from . import  main
 from flask import render_template, redirect, url_for, flash, request
-from flask_login import login_user, logout_user, login_required
+from flask_login import UserMixin, login_user, logout_user, login_required
 from pip import main
 from ..models import User
 from ..auth.forms import LoginForm, RegistrationForm
@@ -125,5 +125,18 @@ def new_pitch():
         all_pitches = Pitch.query.order_by(Pitch.posted).all
 
     return render_template('new_pitch.html',pitch_form = form,pitches=all_pitches)
+
+@main.route('/pitches', methods = ['GET', 'POST'])
+@login_required
+def pitch_display(id):
+    '''
+    View page for the pitches created with their data
+    '''
+
+    pitches= Pitch.get_pitches(UserMixin.id)
+
+
+    return render_template('pitches.html', pitches= pitches)
+
 
 
