@@ -9,30 +9,55 @@
 </head>
 <body>
     <div class="class" style="overflow: hidden; padding: 1cm">
-        <div id="mySidenav" class="sidenav">
-            <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-            <a href="/registration">Register</a>
-            <a href="#">Services</a>
-            <a href="#">Clients</a>
-            <a href="#">Contact</a>
-        </div>
-        <div>
-            <div class="row">
-                <div class="col">
-                    <span onclick="openNav()"><img src="/app/static/icons/menu-button-of-three-horizontal-lines.png"
-                                style=" height: 0.7cm;" alt=""></span>
+        <div class="row">
+            <div class="col">
+                <div id="mySidenav" class="sidenav">
+                    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+                    <a href="/registration">Register</a>
+                    <a href="#">Services</a>
+                    <a href="#">Clients</a>
+                    <a href="#">Contact</a>
                 </div>
-                <!-- <div class="col">
-                    <p style="color: black;"><img src="/app/static/icons/user.png"
-                            style="width: 1cm; height:1cm;">Log in</p>
+                <div>
+                    <div class="row">
+                        <div class="col">
+                            <span onclick="openNav()"><img src="/app/static/icons/menu-button-of-three-horizontal-lines.png"
+                                        style=" height: 0.7cm;" alt=""></span>
+                        </div>
+                    </div>
+                   
                 </div>
-                <div class="col">
-                    <p style="color: black;"><img src="/app/static/icons/user2.png"
-                            style="width: 1cm; height: 1cm; " alt=""> Sign in</p>
-                </div> -->
             </div>
-            <hr>
+            <div class="col">
+                <div class="main">
+                    <div class="check">
+                        <div class="row" style="font-size: 0.5cm;">
+                            {% if current_user.is_authenticated %}
+                            <div class="col">
+                                <li><a href="{{url_for('main.profile',uname=current_user.username)}}">Profile</a></li>
+                            </div>
+                            <div class="col">
+                                <li><a href="{{url_for('auth.logout')}}">Sign out</a></li>
+                            </div>
+
+                            {%else%}
+                            <div class="col">
+                                <li><a href="{{url_for('auth.login')}}">Sign in</a></li>
+                            </div>
+                            
+                            
+
+                           
+                            {%endif%}                            
+                        </div>
+                    </div>
+        
+                </div>
+
+            </div>
         </div>
+        <hr>
+       
     </div>
 
     <script src="/app/static/navbar.js"></script>
