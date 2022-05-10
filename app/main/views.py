@@ -1,6 +1,6 @@
 # from turtle import title
 from flask import render_template
-from ..models import Pitch, User
+from ..models import Pitch, User, Vote
 
 from app.request import Pitch
 from . import  main
@@ -102,6 +102,16 @@ def pitch_display():
 
 
     return render_template('pitches.html', pitches= pitches)
+
+@main.route("/pitches/<int:post_id>/vote/<int:upvote_int>", methods=['POST'])
+def vote(post_id, upvote_int):
+    upvote = bool(upvote_int)
+    db.session.add(vote)
+    db.session.commit()
+
+    votes = Vote.query.all()
+
+    return render_template('pitchess.html', votes = votes)
 
 
 

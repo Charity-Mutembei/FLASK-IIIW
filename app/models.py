@@ -55,7 +55,7 @@ class Pitch(db.Model):
     category = db.Column(db.String)
     context = db.Column(db.String)
     posted = db.Column(db.DateTime,default=datetime.utcnow)
-    name = db.Column(db.String)
+    username = db.Column(db.String(255))
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
     comment = db.relationship('Comment',backref='post',lazy='dynamic')
 
@@ -107,3 +107,11 @@ class Comment(db.Model):
         writer = User.query.filter_by(id=user_id).first()
 
         return writer
+
+class Vote(db.Model):
+    id = db.Column(db.Integer,primary_key=True)
+    posted = db.Column(db.DateTime,default = datetime.utcnow)
+    user_id = db.Column(db.Integer,db.ForeignKey("users.id"))
+    upvote = db.Column(db.Boolean, nullable=False)
+    downvote = db.Column(db.Boolean, nullable=False)
+
