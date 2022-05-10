@@ -11,5 +11,7 @@ class UpdateProfile(FlaskForm):
 
 class PitchForm(FlaskForm):
     category = SelectField('Add pitch category',choices = [('Pick-up Lines','Pick-up Lines'),('Sales','Sales'),('Innovation','Innovation'),('Humanity','Humanity'),('Music','Music'),('Tech','Tech')]) 
+    name = TextAreaField('username')
+    title = TextAreaField('title')
     context = TextAreaField('Pitch itself')
     submit = SubmitField('Submit')

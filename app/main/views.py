@@ -120,7 +120,7 @@ def new_pitch():
         new_pitch = Pitch(category=category,context=context)
         #Database save a new pitch
         new_pitch.save_pitch()
-        return redirect(url_for('main.index'))
+        return redirect(url_for('main.pitch_display'))
     else:
         all_pitches = Pitch.query.order_by(Pitch.posted).all
 
