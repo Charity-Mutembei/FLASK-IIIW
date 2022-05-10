@@ -1,6 +1,8 @@
 # from ensurepip import bootstrap
 # from ensurepip import bootstrap
+from email.mime import image
 from flask_bootstrap import Bootstrap
+from flask_uploads import UploadSet, configure_uploads, IMAGES
 from flask import Flask
 from config import DevConfig
 from config import config_options
@@ -16,6 +18,8 @@ bootstrap = Bootstrap()
 login_manager = LoginManager()
 login_manager.session_protection = 'strong'
 login_manager.login_view = 'auth.login'
+
+images = UploadSet('photos', IMAGES)
 
 
 def create_app(config_name):
@@ -40,5 +44,8 @@ def create_app(config_name):
     #registering the blueprint
     from .main import main as main_blueprint
     app.register_blueprint(main_blueprint)
+
+    #configure Uploadset
+    configure_uploads(app,images)
 
     return app
