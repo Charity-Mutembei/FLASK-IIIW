@@ -128,12 +128,12 @@ def new_pitch():
 
 @main.route('/pitches', methods = ['GET', 'POST'])
 @login_required
-def pitch_display(id):
+def pitch_display():
     '''
     View page for the pitches created with their data
     '''
 
-    pitches= Pitch.get_pitches(UserMixin.id)
+    pitches= Pitch.get_pitches
 
 
     return render_template('pitches.html', pitches= pitches)
