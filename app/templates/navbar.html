@@ -36,13 +36,14 @@
                             <div class="col">
                                 <li><a href="{{url_for('main.profile',uname=current_user.username)}}">Profile</a></li>
                             </div>
-                            <div class="col">
-                                <li><a href="{{url_for('auth.logout')}}">Sign out</a></li>
-                            </div>
+                           
 
                             {%else%}
                             <div class="col">
-                                <li><a href="{{url_for('auth.login')}}">Sign in</a></li>
+                                <img src="/app/static/icons/user2.png" alt="" style="width: 1cm; height:1cm;"><a href="{{url_for('auth.login')}}">Sign in</a>
+                            </div>
+                            <div class="col">
+                                <img src="/app/static/icons/user.png" alt="" style="width: 1cm; height:1cm;"><a href="{{url_for('auth.logout')}}">Sign out</a>
                             </div>
                             
                             
