@@ -133,7 +133,8 @@ def pitch_display():
     View page for the pitches created with their data
     '''
 
-    pitches= Pitch.get_pitches
+    # pitches= Pitch.get_pitches
+    pitches = Pitch.query.all()
 
 
     return render_template('pitches.html', pitches= pitches)
