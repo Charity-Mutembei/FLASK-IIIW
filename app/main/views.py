@@ -109,22 +109,21 @@ def logout():
     logout_user()
     return redirect(url_for("main.index"))
 
-@main.route('/pitches/new/<int:id>', methods = ['GET', 'POST'])
+@main.route('/create_new',methods = ['GET','POST'])
 @login_required
-def new_pitch(id):
-
+def new_pitch():
     form = PitchForm()
+
     if form.validate_on_submit():
-        title = form.title.data
-        pitch = form.pitch.data
-
-        #updated review instance
-        new_pitch = Pitch(title, pitch)
-
-        #save review method
+        category = form.category.data
+        context = form.context.data
+        new_pitch = Pitch(category=category,context=context)
+        #Database save a new pitch
         new_pitch.save_pitch()
-        return redirect(url_for())
+        return redirect(url_for('main.index'))
+    else:
+        all_pitches = Pitch.query.order_by(Pitch.posted).all
 
+    return render_template('new_pitch.html',pitch_form = form,pitches=all_pitches)
 
-    return render_template('new_pitch.html', pitch_form = form, pitch = pitch)
 

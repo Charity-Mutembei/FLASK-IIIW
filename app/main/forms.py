@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, SubmitField,TextAreaField
+from wtforms import StringField, PasswordField, SubmitField,TextAreaField, SelectField
 from wtforms.validators import Required, Email, EqualTo
 from wtforms import ValidationError
 from wtforms import StringField, PasswordField, BooleanField, SubmitField
@@ -10,6 +10,6 @@ class UpdateProfile(FlaskForm):
     submit = SubmitField('Submit')
 
 class PitchForm(FlaskForm):
-    title = StringField('Pitch title', validators=[Required()])
-    pitch = TextAreaField('Pitch', validators=[Required()])
+    category = SelectField('Add pitch category',choices = [('Pick-up Lines','Pick-up Lines'),('Sales','Sales'),('Innovation','Innovation'),('Humanity','Humanity'),('Music','Music'),('Tech','Tech')]) 
+    context = TextAreaField('Pitch itself')
     submit = SubmitField('Submit')

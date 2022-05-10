@@ -46,32 +46,47 @@ class Role(db.Model):
 
 
 class Pitch(db.Model):
+    
     __tablename__ = 'pitches'
 
-
-    all_pitches = []
-
-    id = db.Column(db.Integer,primary_key = True)
-    pitch_title = db.Column(db.String)
-    pitch_review = db.Column(db.String)
+    id = db.Column(db.Integer,primary_key=True)
+    category = db.Column(db.String)
+    context = db.Column(db.String)
     posted = db.Column(db.DateTime,default=datetime.utcnow)
-    user_id = db.Column(db.Integer,db.ForeignKey("users.id"))
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+    comment = db.relationship('Comment',backref='post',lazy='dynamic')
+
+
 
     def save_pitch(self):
-        db.session.add(self)
-        db.session.commit(self)
+            db.session.add(self)
+            db.session.commit()
+
+    def _repr_(self):
+            return f'Pitch{self.category}'
+        
+class Comment(db.Model):
     
+    __tablename__ = 'comments'
+
+    id = db.Column(db.Integer,primary_key=True)
+    title = db.Column(db.String)
+    pitch_id = db.Column(db.Integer,db.ForeignKey('pitches.id'))
+    pitch_comment = db.Column(db.String)
+    posted = db.Column(db.DateTime,default = datetime.utcnow)
+    user_id = db.Column(db.Integer,db.ForeignKey("users.id"))
+
+    def save_comment(self):
+        db.session.add(self)
+        db.session.commit()
+
     @classmethod
-    def get_pitches(cls, id):
+    def get_comments(cls, pitch_id):
+        comments = Comment.query.filter_by(pitch_id=pitch_id).all()
+        return comments
 
+    @classmethod
+    def get_comment_writer(cls, user_id):
+        writer = User.query.filter_by(id=user_id).first()
 
-        pitches = []
-        pitches = Pitch.query.filter_by(user_id = id).all()
-
-        for pitch in cls.all_pitches:
-            pitches.append(pitch)
-
-
-
-        return pitches
-
+        return writer
