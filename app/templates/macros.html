@@ -46,27 +46,3 @@
     </div>
 </div>
 {% endmacro %}
-
-
-{% macro displayVotes(votes)%} 
-{% if votes %}
-        {%for vote in votes%}
-    <div class="row">
-        <div class="col">
-            <span><i class="fa-solid fa-thumbs-up"></i>{{vote.upvote}}</span>
-    
-        </div>
-        <div class="col">
-            <span><i class="fa-solid fa-thumbs-down"></i>{{vote.downvote}}</span>
-    
-        </div>
-    </div>
-    
-  
-
-    {%endfor%}
-    {%endif%}
-
-
-
-{%endmacro%}

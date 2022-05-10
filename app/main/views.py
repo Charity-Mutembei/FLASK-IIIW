@@ -1,6 +1,7 @@
 # from turtle import title
+from xmlrpc.client import boolean
 from flask import render_template
-from ..models import Pitch, User, Vote
+from ..models import Pitch, User, Upvote, Downvote
 
 from app.request import Pitch
 from . import  main
@@ -99,19 +100,28 @@ def pitch_display():
 
     # pitches= Pitch.get_pitches
     pitches = Pitch.query.all()
+    
 
 
     return render_template('pitches.html', pitches= pitches)
 
-@main.route("/pitches/<int:post_id>/vote/<int:upvote_int>", methods=['POST'])
-def vote(post_id, upvote_int):
-    upvote = bool(upvote_int)
-    db.session.add(vote)
-    db.session.commit()
+@main.route('/pitch/upvote/<int:pitch_id>/upvote', methods=['GET', 'POST'])
+@login_required
+def upvote(pitch_id):
+    pitch = Pitch.query.get(pitch_id)
+    user = current_user
+    pitch_upvotes = Upvote.query.filter_by(pitch_id=pitch_id)
 
-    votes = Vote.query.all()
+    if Upvote.query.filter(Upvote.user_id == user.id, Upvote.pitch_id == pitch_id).first():
+        return redirect(url_for('main.index'))
 
-    return render_template('pitchess.html', votes = votes)
+    new_upvote = Upvote(pitch_id=pitch_id, user=current_user)
+    new_upvote.save_upvotes()
+    return redirect(url_for('main.index'))
+
+   
+
+
 
 
 
