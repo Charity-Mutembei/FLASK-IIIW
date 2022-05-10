@@ -49,6 +49,8 @@ class Pitch(db.Model):
     
     __tablename__ = 'pitches'
 
+    all_pitches = []
+
     id = db.Column(db.Integer,primary_key=True)
     category = db.Column(db.String)
     context = db.Column(db.String)
@@ -61,6 +63,20 @@ class Pitch(db.Model):
     def save_pitch(self):
             db.session.add(self)
             db.session.commit()
+
+            Pitch.all_pitches.append(self)
+
+
+    @classmethod
+    def get_pitches(cls, id):
+        response = []
+
+
+        for pitch in cls.all_pitches:
+            if pitch.user_id==id:
+                response.append(pitch)
+
+        
 
     def _repr_(self):
             return f'Pitch{self.category}'
