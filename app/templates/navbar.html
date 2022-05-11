@@ -34,9 +34,14 @@
                         <div class="row" style="font-size: 0.5cm;">
                             {% if current_user.is_authenticated %}
                             <div class="col">
-                                <li><a href="{{url_for('main.profile',uname=current_user.username)}}">Profile</a></li>
+                               <img src="/app/static/icons/user1.png" alt="" style="width: 1cm; height:1cm;"> <a href="{{url_for('main.profile',uname=current_user.username)}}">Profile</a>
                             </div>
-                           
+                            <div class="col">
+                                <img src="/app/static/icons/user2.png" alt="" style="width: 1cm; height:1cm;"><a href="{{url_for('auth.login')}}">Sign in</a>
+                            </div>
+                            <div class="col">
+                                <img src="/app/static/icons/user.png" alt="" style="width: 1cm; height:1cm;"><a href="{{url_for('auth.logout')}}">Sign out</a>
+                            </div>
 
                             {%else%}
                             <div class="col">
